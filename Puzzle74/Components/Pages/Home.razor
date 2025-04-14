@@ -1,0 +1,36 @@
+﻿@page "/"
+@implements IDisposable
+@inject NavigationManager navigationManager
+
+
+<PageTitle>Home</PageTitle>
+
+<h1>Puzzle #74 - Canceling Navigation</h1>
+
+<p>This is a .NET 9 Blazor Web App with Global Server interactivity.</p>
+<p>When the user navigates away from this page, we want to be notified and also be able to cancel the navigation.</p>
+<p>You might need this if, for example, the user is adding a new record. 
+    You could ask the user to confirm whether they really want to navigate away from the page before saving.</p>
+<p>We know we need a Navigation Manager, but how can we use it to cancel the navigation?</p>
+
+@code {
+
+    protected override void OnInitialized()
+    {
+        navigationManager.LocationChanged += OnLocationChanged;
+    }
+
+    private void OnLocationChanged(object sender, LocationChangedEventArgs e)
+    {
+        // This is where we might check if the user has unsaved changes
+        // and prompt them to confirm navigation.
+        // For now, we will just log the event.
+        Console.WriteLine($"Location changed to: {e.Location}");
+    }
+
+    public void Dispose()
+    {
+        // Unsubscribe from the event when the component is disposed
+        navigationManager.LocationChanged -= OnLocationChanged;
+    }
+}

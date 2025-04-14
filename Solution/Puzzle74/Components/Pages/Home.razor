@@ -1,0 +1,43 @@
+﻿@page "/"
+@implements IDisposable
+@inject NavigationManager navigationManager
+@inject IJSRuntime jsRuntime
+
+<PageTitle>Home</PageTitle>
+
+<h1>Puzzle #74 - Canceling Navigation</h1>
+
+<p>This is a .NET 9 Blazor Web App with Global Server interactivity.</p>
+<p>When the user navigates away from this page, we want to be notified and also be able to cancel the navigation.</p>
+<p>You might need this if, for example, the user is adding a new record. 
+    You could ask the user to confirm whether they really want to navigate away from the page before saving.</p>
+<p>We know we need a Navigation Manager, but how can we use it to cancel the navigation?</p>
+<p>The solution is to call RegisterLocationChangingHandler passing a delegate. 
+    In that handler method, we can call PreventNavigation(). 
+</p>
+
+@code {
+
+    private IDisposable? navigationHandler;
+
+    protected override void OnInitialized()
+    {
+        navigationHandler = navigationManager.RegisterLocationChangingHandler(OnLocationChanging);
+    }
+
+    private async ValueTask OnLocationChanging(LocationChangingContext context)
+    {
+        // Example: show a confirmation dialog
+        var shouldLeave = await jsRuntime.InvokeAsync<bool>("confirm", "You have unsaved changes. Are you sure you want to leave?");
+        if (!shouldLeave)
+        {
+            context.PreventNavigation(); // Cancels the navigation
+        }
+    }
+
+    public void Dispose()
+    {
+        // Unsubscribe from the handler when the component is disposed
+        navigationHandler?.Dispose();
+    }
+}
