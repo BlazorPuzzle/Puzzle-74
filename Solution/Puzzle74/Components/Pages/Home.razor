@@ -1,7 +1,8 @@
 ﻿@page "/"
 @implements IDisposable
-@inject NavigationManager navigationManager
 @inject IJSRuntime jsRuntime
+@inject NavigationManager navigationManager
+
 
 <PageTitle>Home</PageTitle>
 
@@ -11,10 +12,7 @@
 <p>When the user navigates away from this page, we want to be notified and also be able to cancel the navigation.</p>
 <p>You might need this if, for example, the user is adding a new record. 
     You could ask the user to confirm whether they really want to navigate away from the page before saving.</p>
-<p>We know we need a Navigation Manager, but how can we use it to cancel the navigation?</p>
-<p>The solution is to call RegisterLocationChangingHandler passing a delegate. 
-    In that handler method, we can call PreventNavigation(). 
-</p>
+<p>The Solution is to call RegisterLocationChangingHandler passing a delagate to a method that accepts a LocationChangingContext</p>
 
 @code {
 

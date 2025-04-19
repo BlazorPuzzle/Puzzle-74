@@ -18,7 +18,7 @@ We know we need a Navigation Manager, but how can we use it to cancel the naviga
 
 ## The Solution
 
-Rather than using the `LocatioChanged` event,  the solution is to call `RegisterLocationChangingHandler` passing a delegate to a handler method where we can call `PreventNavigation()`.
+Rather than using the `LocatioChanged` event, the solution is to call `RegisterLocationChangingHandler` passing a delegate to a handler method where we can call `PreventNavigation()`.
 
 We need a disposable variable to store the handler:
 
