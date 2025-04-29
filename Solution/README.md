@@ -2,7 +2,7 @@
 
 Jeff and Carl want to know how to interrupt a navigation request and optionally cancel it in a .NET 9 Blazor Web App with Global Server interactivity.
 
-YouTube Video: https://youtu.be/
+YouTube Video: https://youtu.be/UkHezqeIQUE
 
 Blazor Puzzle Home Page: https://blazorpuzzle.com
 
